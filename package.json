@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "npx lint-staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "migrations":"node src/db/postgres/migrations/01-init.sql"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.0.2",
     "git-commit-msg-linter": "^5.0.8",
