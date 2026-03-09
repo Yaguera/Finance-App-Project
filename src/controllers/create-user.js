@@ -55,14 +55,6 @@ export class CreateUserController {
         });
       }
 
-      const userAlreadyExists = await this.userRepository.findByEmail(
-        params.email,
-      );
-
-      if (userAlreadyExists) {
-        throw new Error("USER_ALREADY_EXISTS");
-      }
-
       // call UseCase
       const createUserUseCase = new CreateUserUseCase();
 

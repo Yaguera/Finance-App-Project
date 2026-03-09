@@ -13,9 +13,9 @@
 
 ## 👨🏻‍💻 Projeto
 
-Esta é uma **API REST** robusta para um **Dashboard Financeiro**, desenvolvida para gerenciar usuários e transações com foco em escalabilidade e manutenção. 
+Esta é uma **API REST** criada durante o curso FullStack Club para um **Dashboard Financeiro**, desenvolvida para gerenciar usuários e transações com foco em escalabilidade e manutenção. 
 
-A aplicação foi construída utilizando **Node.js** e segue rigorosamente os princípios de **Clean Architecture**, garantindo que as regras de negócio sejam independentes de frameworks e bancos de dados.
+A aplicação foi construída utilizando **Node.js** e seguindo os princípios de **Clean Architecture**, garantindo que as regras de negócio sejam independentes de frameworks e bancos de dados.
 
 <br>
 
@@ -45,38 +45,6 @@ A aplicação segue o fluxo de responsabilidades:
 
 <br>
 
-## 🚀 Como Executar
-
-### Pré-requisitos
-- Node.js instalado.
-- Instância do PostgreSQL rodando localmente ou via Docker.
-
-### Configuração
-1. Clone o repositório.
-2. Instale as dependências:
-   ```bash
-   npm install
-   ```
-3. Configure as variáveis de ambiente criando um arquivo `.env` na raiz:
-   ```env
-   PORT=3000
-   POSTGRES_USER=seu_usuario
-   POSTGRES_PASSWORD=sua_senha
-   POSTGRES_HOST=localhost
-   POSTGRES_PORT=5432
-   POSTGRES_DATABASE=financeapp
-   ```
-4. Execute as migrações para criar as tabelas:
-   ```bash
-   npm run migrations
-   ```
-5. Inicie o servidor em modo de desenvolvimento:
-   ```bash
-   npm run start:dev
-   ```
-
-<br>
-
 ## 📁 Estrutura de Pastas
 
 ```text
@@ -94,4 +62,4 @@ src/
 Este projeto está sob a licença [ISC](https://opensource.org/licenses/ISC).
 
 ---
-<p align="center">Desenvolvido com ❤️ por Yago Gomes</p>
+<p align="center">Desenvolvido por por Yago Gomes</p>
