@@ -1,3 +1,4 @@
+import { badRequest, created, serverError } from "./helpers.js";
 import { CreateUserUseCase } from "../use-cases/create-user.js";
 import validator from "validator";
 
@@ -10,70 +11,56 @@ export class CreateUserController {
 
       for (const field of requiredFields) {
         if (!params[field] || params[field].trim().length === 0) {
-          return {
-            statusCode: 400,
-            body: {
-              errorMessage: `Missing param: ${field}`,
-            },
-          };
+          return badRequest({
+            message: `Missing param: ${field}`,
+          });
         }
       }
 
       if (params.password.length < 6) {
-        return {
-          statusCode: 400,
-          body: {
-            errorMessage: "Password must be at least 6 characteres",
-          },
-        };
+        return badRequest({
+          message: "Password must be at least 6 characteres",
+        });
       }
 
       if (!/[A-Z]/.test(params.password)) {
-        return {
-          statusCode: 400,
-          body: {
-            errorMessage: "Password must contain at least one uppercase letter",
-          },
-        };
+        return badRequest({
+          message: "Password must contain at least one uppercase letter",
+        });
       }
 
       if (!/[a-z]/.test(params.password)) {
-        return {
-          statusCode: 400,
-          body: {
-            errorMessage: "Password must contain at least one lowercase letter",
-          },
-        };
+        return badRequest({
+          message: "Password must contain at least one lowercase letter",
+        });
       }
 
       if (!/[0-9]/.test(params.password)) {
-        return {
-          statusCode: 400,
-          body: {
-            errorMessage: "Password must contain at least one number",
-          },
-        };
+        return badRequest({
+          message: "Password must contain at least one number",
+        });
       }
 
       if (!/[!@#$%^&*(),.?":{}|<>]/.test(params.password)) {
-        return {
-          statusCode: 400,
-          body: {
-            errorMessage:
-              "Password must contain at least one special character",
-          },
-        };
+        return badRequest({
+          message: "Password must contain at least one special character",
+        });
       }
 
       //   validate email
       const emailIsValid = validator.isEmail(params.email);
       if (!emailIsValid) {
-        return {
-          statusCode: 400,
-          body: {
-            errorMessage: "Invalide e-mai. Please provide a valide one.",
-          },
-        };
+        return badRequest({
+          message: "Invalide e-mai. Please provide a valide one.",
+        });
+      }
+
+      const userAlreadyExists = await this.userRepository.findByEmail(
+        params.email,
+      );
+
+      if (userAlreadyExists) {
+        throw new Error("USER_ALREADY_EXISTS");
       }
 
       // call UseCase
@@ -82,18 +69,10 @@ export class CreateUserController {
       const createdUser = await createUserUseCase.execute(params);
 
       // return the answer to the user (status code)
-      return {
-        statusCode: 201,
-        body: createdUser,
-      };
+      return created(createdUser);
     } catch (error) {
       console.error(error);
-      return {
-        statusCode: 500,
-        body: {
-          errorMessage: "Internal server error.",
-        },
-      };
+      return serverError();
     }
   }
 }
